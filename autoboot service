@@ -1,0 +1,30 @@
+create this service
+
+[Unit]
+Description=Start Dermscopev310 Application
+After=weston.service
+
+[Service]
+Type=simple
+Environment="XDG_RUNTIME_DIR=/run/user/0"
+Environment="QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/plugins/platforms"
+ExecStart=/opt/dermscopev310/bin/dermscopev310 -platform wayland
+Restart=on-failure
+User=root
+Group=root
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+Manually Test the Application:
+export XDG_RUNTIME_DIR=/run/user/0
+export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/plugins/platforms
+/opt/dermscopev310/bin/dermscopev310 -platform wayland
+
+sudo systemctl daemon-reload
+sudo systemctl restart dermscopev310.service
+
